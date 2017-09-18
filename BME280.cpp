@@ -79,7 +79,7 @@ void BME280::readTrim(){
         _dig_H5 = (data[30] << 4) | ((data[29] >> 4) & 0x0F);
         _dig_H6 = data[31];
 }
-void BME280::readData(double *temp_act,double *press_act,double *hum_act){
+void BME280::readData(double &temp_act,double &press_act,double &hum_act){
     int i = 0;
     uint32_t data[8];
     Wire.beginTransmission(_bme280_address);
@@ -94,9 +94,9 @@ void BME280::readData(double *temp_act,double *press_act,double *hum_act){
     unsigned long int _temp_raw = (data[3] << 12) | (data[4] << 4) | (data[5] >> 4);
     unsigned long int _hum_raw = (data[6] <<8) | data[7];
     
-    *temp_act = calibration_T(_temp_raw) / 100.0;
-    *press_act = calibration_P(_press_raw) / 100.0;
-    *hum_act = calibration_H(_hum_raw) / 1024.0;
+    temp_act = calibration_T(_temp_raw) / 100.0;
+    press_act = calibration_P(_press_raw) / 100.0;
+    hum_act = calibration_H(_hum_raw) / 1024.0;
 }
 signed long int BME280::calibration_T(signed long int _adc_T){
     signed long int var1, var2,T;
