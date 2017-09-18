@@ -24,7 +24,7 @@ public:
     uint8_t t_sb;
     uint8_t filter;
     
-    void readData(double *temp_act,double *press_act,double *hum_act);
+    void readData(double &temp_act,double &press_act,double &hum_act);
     
 private:
     void readTrim();
